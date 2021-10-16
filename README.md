@@ -1,6 +1,8 @@
  # L05E01: Data
 Vytvořte balíček `data`, který obsahuje moduly `index.py`, `series.py` a `dataframe.py`.
 
+---
+
 ## Třída `Index`
 Modul `index.py` obsahuje třídu `Index`, která slouží k překladu názvu na jejich index. Třída `Index` obsahuje vlastnosti `.labels` a `.name`. Vlastnost `.labels` je povinná a její interní reprezentace je seznam. Seznam `.labels` nesmí obsahovat duplicitní řetězec, pokud se tak stane, vyvoláme `ValueError`. Vlastnost `.name` je volitelná, v případě, že ji uživatel neuvede je rovna `""`.
 
@@ -26,6 +28,8 @@ idx = Index(["user 1", "user 2", "user 3", "user 4", "user 5"])
 
 assert idx.get_loc("user 1") == 1
 ```
+
+---
 
 ## Třída `Series`
 Modul `series.py` obsahuje třídu `Series`, která slouží k reprezentaci serie hodnot (má alespoň jednu hodnotu) s odpovídajícím indexem. Například tedy platy uživatelů. Třída `Series` obsahuje povinnou vlastnost `.values` ve které uložíme jednotlivé hodnoty a vlastnost `.index` reprezentovaný objektem třídy `Index` sloužící k indexování hodnot uložených ve `.values`. Pokud `.index` není uveden, vytvoří se index s hodnotami 0 až n, kde n je délka `.values`.
