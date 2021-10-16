@@ -27,8 +27,8 @@ idx = Index(["user 1", "user 2", "user 3", "user 4", "user 5"])
 assert idx.get_loc("user 1") == 1
 ```
 
-## Třída Series
-Modul `series.py` obsahuje třídu `Series`, která slouží k reprezentaci serie hodnot s odpovídajícím indexem. Například tedy platy uživatelů. Třída `Series` obsahuje povinnou vlastnost `.values` ve které uložíme jednotlivé hodnoty a vlastnost `.index` reprezentovaný objektem třídy `Index` sloužící k indexování hodnot uložených ve `.values`. Pokud `.index` není uveden, vytvoří se index s hodnotami 0 až n, kde n je délka `.values`.
+## Třída `Series`
+Modul `series.py` obsahuje třídu `Series`, která slouží k reprezentaci serie hodnot (má alespoň jednu hodnotu) s odpovídajícím indexem. Například tedy platy uživatelů. Třída `Series` obsahuje povinnou vlastnost `.values` ve které uložíme jednotlivé hodnoty a vlastnost `.index` reprezentovaný objektem třídy `Index` sloužící k indexování hodnot uložených ve `.values`. Pokud `.index` není uveden, vytvoří se index s hodnotami 0 až n, kde n je délka `.values`.
 
 ```python
 from data.series import Series
@@ -148,3 +148,24 @@ assert cash_flow != result
 assert result.values == [100, 10000, 2000, 1100, 100
 ```
 
+## Třída `DataFrame`
+Modul `dataframe.py` obsahuje třídu `DataFrame`, která slouží k reprezentaci tabulky dat. Tabulka je složena ze sloupců (má alespoň jeden sloupec), každý sloupec je tvořen instancí třídy `Series`. Sloupce jsou indexované pomocí instance `Index`. Třída `DataFrame` tedy obsahuje dvě vlastnosti `.values` (seznam `Series` instancí) a `.columns` (instance třídy `Index`).
+
+Třída `DataFrame` obsahuje jedinou metodu `.get(self, key)`, které vrací sloupec odpovídající klíči `key`. Pokud klíč `key` není obsažen v indexu `.columns` vrací `None`.
+
+```python
+from data.series import Series
+from data.index import Index
+
+
+users = Index(["user 1", "user 2", "user 3", "user 4", "user 5"], name="names")
+
+salaries = Series([20000, 300000, 20000, 50000, 10000], index=users)
+names = Series(["Lukas Novak", "Petr Pavel", "Pavel Petr", "Ludek Skocil", "Josef Nebyl"], index=users)
+cash_flow = Series([-100, 10000, -2000, 1100, 100], index=users)
+
+data = DataFrame([names, salaries, cash_flow], columns=Index(["names", "salary", "cash flow"]))
+
+data.get("salary") == salaries
+data.get("cash flow").max() == 10000
+```
