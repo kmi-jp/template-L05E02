@@ -1,8 +1,8 @@
-# L05E01: Data
+ # L05E01: Data
 Vytvořte balíček `data`, který obsahuje moduly `index.py`, `series.py` a `dataframe.py`.
 
 ## Třída `Index`
-Modul `index.py` obsahuje třídu `Index`, která slouží k překladu názvu na jejich index. Třída `Index` obsahuje vlastnosti `.labels` a `.name`. Vlastnost `.labels` je povinná a její interní reprezentace je seznam. Seznam `.labels` nesmí obsahovat duplicitní řětězec, pokud se tak stane, vyvoláme `ValueError`. Vlastnost `.name` je volitelná, v případě, že ji uživatel neuvede je rovna `""`.
+Modul `index.py` obsahuje třídu `Index`, která slouží k překladu názvu na jejich index. Třída `Index` obsahuje vlastnosti `.labels` a `.name`. Vlastnost `.labels` je povinná a její interní reprezentace je seznam. Seznam `.labels` nesmí obsahovat duplicitní řetězec, pokud se tak stane, vyvoláme `ValueError`. Vlastnost `.name` je volitelná, v případě, že ji uživatel neuvede je rovna `""`.
 
 ```python
 from data.index import Index
@@ -19,7 +19,7 @@ assert idx.name == "users"
 assert idx.labels == ["user 1", "user 2", "user 3", "user 4", "user 5"]
 ```
 
-Dále třída `Index` obsahuje metodu `.get_loc(self, key)`, která vrací index zadaného klíče `key` uloženého v seznamu `.labels`. Pokud není klíč přítomen vyvoláme vyjimku `ValueError`.
+Dále třída `Index` obsahuje metodu `.get_loc(self, key)`, která vrací index zadaného klíče `key` uloženého v seznamu `.labels`. Pokud není klíč přítomen vyvoláme výjimku `ValueError`.
 
 ```python
 idx = Index(["user 1", "user 2", "user 3", "user 4", "user 5"])
@@ -50,7 +50,7 @@ assert no_index.index.labels == [0, 1, 2, 3, 4]
 ```
 
 ### Metoda `.get(self, key)`
-Slouží k přístupu k hodnota uložené pod klíčem `key`. V případě, že klíč neni přítomen, výsledná hodnota je `None`.
+Slouží k přístupu k hodnota uložené pod klíčem `key`. V případě, že klíč není přítomen, výsledná hodnota je `None`.
 
 ```python
 from data.series import Series
@@ -110,7 +110,7 @@ assert cash_flow.mean() == 1820.0
 ```
 
 ### Metoda `.apply(self, func)`
-Která aplikuje funkci `func` na všechny prvky `Series` a vrátí `Series` novou (s vypočítanými hodnotami). Původní `Series` nemodifikujeme!
+Která aplikuje funkci `func` na všechny prvky `Series` a vrátí `Series` novou (s vypočítanými hodnotami). Původní `Series` nemodifikuje!
 
 ```python
 from data.series import Series
@@ -132,7 +132,7 @@ assert result.values == [10000, 100000000, 4000000, 1210000, 10000]
 ```
 
 ### Metoda `.abs(self)`
-Která aplikuje funkci `abs` na všechny prvky `Series` a vrátí `Series` novou. Původní `Series` nemodifikujeme!
+Která aplikuje funkci `abs` na všechny prvky `Series` a vrátí `Series` novou. Původní `Series` nemodifikuje!
 
 ```python
 from data.series import Series
@@ -151,7 +151,7 @@ assert result.values == [100, 10000, 2000, 1100, 100
 ## Třída `DataFrame`
 Modul `dataframe.py` obsahuje třídu `DataFrame`, která slouží k reprezentaci tabulky dat. Tabulka je složena ze sloupců (má alespoň jeden sloupec), každý sloupec je tvořen instancí třídy `Series`. Sloupce jsou indexované pomocí instance `Index`. Třída `DataFrame` tedy obsahuje dvě vlastnosti `.values` (seznam `Series` instancí) a `.columns` (instance třídy `Index`).
 
-Třída `DataFrame` obsahuje jedinou metodu `.get(self, key)`, které vrací sloupec odpovídající klíči `key`. Pokud klíč `key` není obsažen v indexu `.columns` vrací `None`.
+Třída `DataFrame` obsahuje jednu metodu `.get(self, key)`, které vrací sloupec odpovídající klíči `key`. Pokud klíč `key` není obsažen v indexu `.columns` vrací `None`.
 
 ```python
 from data.series import Series
@@ -169,3 +169,5 @@ data = DataFrame([names, salaries, cash_flow], columns=Index(["names", "salary",
 data.get("salary") == salaries
 data.get("cash flow").max() == 10000
 ```
+
+
