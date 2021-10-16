@@ -20,7 +20,7 @@ Třída obsahuje následující vlastnosti:
 * `Index.name` - volitelná vlastnost obsahující název indexu, výchozí hodnota na `""`.
 
 Třída obsahuje následující metody:
-* `Index.get_loc(self, key)` - přeloží klíč `key` z `Index.labels` na odpovídající index. Pokud není klíč přítomen vyvoláme výjimku `ValueError`
+* `Index.get_loc(self, key)` - přeloží klíč `key` z `Index.labels` na odpovídající index. Pokud není klíč přítomen vyvoláme výjimku `KeyError`.
 
 ```python
 from data.index import Index
