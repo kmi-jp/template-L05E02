@@ -46,7 +46,34 @@ assert idx.get_loc("user 2") == 1
 ---
 
 ## Třída `Series`
-Modul `series.py` obsahuje třídu `Series`, která slouží k reprezentaci serie hodnot (má alespoň jednu hodnotu) s odpovídajícím indexem. Například tedy platy (hodnoty) uživatelů (index). Třída `Series` obsahuje povinnou vlastnost `.values` ve které uložíme jednotlivé hodnoty a vlastnost `.index` reprezentovaný objektem třídy `Index` sloužící k indexování hodnot uložených ve `.values`. Pokud `.index` není uveden, vytvoří se index s hodnotami 0 až n, kde n je délka `.values`.
+Modul `series.py` obsahuje třídu `Series`, která uchovává serii hodnot indexovaných dle objektu třídy `Index`.
+
+```python
+from data.series import Series
+from data.index import Index
+
+# index
+users = Index(["user 1", "user 2", "user 3", "user 4", "user 5"], name="names")
+
+# series indexovaná dle indexu users
+salaries = Series([20000, 300000, 20000, 50000, 10000], index=users)
+
+assert salaries.values == [20000, 300000, 20000, 50000, 10000]
+assert salaries.index.labels == ['user 1', 'user 2', 'user 3', 'user 4', 'user 5']
+```
+
+Třída obsahuje následující vlastnosti:
+* `Series.values` - seznam hodnot uložený v serii, musí obsahovat alespoň jeden prvek jinak vyvolá `ValueError`.
+* `Series.index` - index sloužící k indexaci `Series.values`, musi být stejné délky jako `Series.values` jinak vyvolá `ValueError`. Pokud byla počáteční hodnota `None` vytvoříme index nový, `Index.labels` nastavíme na hodnoty `0` až `n` kde `n` je délka `Series.values`.
+
+Třída obsahuje následující metody:
+* `Series.get(self, key)` - pokud `Series.index` obsahuje `key`, vrátí odpovídající hodnotu z `Series.values`, jinak vrací `None`.
+* `Series.sum(self)` - sečtě všechny hodnoty v serii, detailní popis níže
+* `Series.max(self)` - nalezne maximální hodnotu ze serie, detailní popis níže
+* `Series.mean(self)` - vypočítá aritmetický průměr, detailní popis níže
+* `Series.apply(self, func)` - aplikuje libovolnou funkci na prvky serie, detailní popis níže
+* `Series.abs(self)` - vytvoří novou serii, kde všechny hodnotu budou výsledky aplikace funkce `abs()`, detailní popis níže
+
 
 ```python
 from data.series import Series
@@ -67,9 +94,6 @@ no_index = Series(["Lukas Novak", "Petr Pavel", "Pavel Petr", "Ludek Skocil", "J
 assert no_index.index.labels == [0, 1, 2, 3, 4]
 ```
 
-### Metoda `.get(self, key)`
-Slouží k přístupu k hodnota uložené pod klíčem `key`. V případě, že klíč není přítomen, výsledná hodnota je `None`.
-
 ```python
 from data.series import Series
 from data.index import Index
@@ -86,7 +110,7 @@ assert cash_flow.get("user 1000") is None
 Dále bude možné provádět jednoduché operace na datech uložených v `Series`. Konkrétně:
 
 ### Metoda `.max(self)`
-Maximální hodnota v `Series`.
+Maximální hodnota v `Series`. Nemusíte ošetřovat datový typ hodnot v serii.
 
 ```python
 from data.series import Series
@@ -100,7 +124,7 @@ assert cash_flow.max() == 10000
 ```
 
 ### Metoda `.sum(self)`
-Součet hodnot v `Series`.
+Součet hodnot v `Series`. Nemusíte ošetřovat datový typ hodnot v serii.
 
 ```python
 from data.series import Series
@@ -114,7 +138,7 @@ assert cash_flow.sum() == 9100
 ```
 
 ### Metoda `.mean(self)`
-Aritmetický průměr hodnot v `Series`.
+Aritmetický průměr hodnot v `Series`. Nemusíte ošetřovat datový typ hodnot v serii.
 
 ```python
 from data.series import Series
@@ -127,7 +151,7 @@ cash_flow = Series([-100, 10000, -2000, 1100, 100], index=users)
 assert cash_flow.mean() == 1820.0
 ```
 
-### Metoda `.apply(self, func)`
+### Metoda `.apply(self, func)` 
 Která aplikuje funkci `func` na všechny prvky `Series` a vrátí `Series` novou (s vypočítanými hodnotami). Původní `Series` nemodifikuje!
 
 ```python
@@ -150,7 +174,7 @@ assert result.values == [10000, 100000000, 4000000, 1210000, 10000]
 ```
 
 ### Metoda `.abs(self)`
-Která aplikuje funkci `abs` na všechny prvky `Series` a vrátí `Series` novou. Původní `Series` nemodifikuje!
+Která aplikuje funkci `abs` na všechny prvky `Series` a vrátí `Series` novou. Původní `Series` nemodifikuje! Nemusíte ošetřovat datový typ hodnot v serii.
 
 ```python
 from data.series import Series
