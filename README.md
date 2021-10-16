@@ -65,12 +65,12 @@ assert salaries.index.labels == ['user 1', 'user 2', 'user 3', 'user 4']
 ```
 
 Třída obsahuje následující vlastnosti:
-* `Series.values` - seznam hodnot uložený v serii, musí obsahovat alespoň jeden prvek jinak vyvolá `ValueError`.
-* `Series.index` - index sloužící k indexaci `Series.values`, musi být stejné délky jako `Series.values` jinak vyvolá `ValueError`. Pokud byla počáteční hodnota `None` vytvoříme index nový, `Index.labels` nastavíme na hodnoty `0` až `n` kde `n` je délka `Series.values`.
+* `Series.values` - seznam hodnot uložený v posloupnosti, musí obsahovat alespoň jeden prvek jinak vyvolá `ValueError`.
+* `Series.index` - index sloužící k indexaci `Series.values`, musí být stejné délky jako `Series.values` jinak vyvolá `ValueError`. Pokud byla počáteční hodnota `None` vytvoříme index nový, `Index.labels` nastavíme na hodnoty `0` až `n` kde `n` je délka `Series.values`.
 
 Třída obsahuje následující metody:
 * `Series.get(self, key)` - pokud `Series.index` obsahuje `key`, vrátí odpovídající hodnotu z `Series.values`, jinak vrací `None`.
-* `Series.sum(self)` - sečtě všechny hodnoty v serii, detailní popis níže
+* `Series.sum(self)` - sečte všechny hodnoty v posloupnosti, detailní popis níže
 * `Series.max(self)` - nalezne maximální hodnotu z posloupnosti, detailní popis níže
 * `Series.mean(self)` - vypočítá aritmetický průměr, detailní popis níže
 * `Series.apply(self, func)` - aplikuje libovolnou funkci na prvky posloupnosti, detailní popis níže
@@ -112,7 +112,7 @@ assert cash_flow.get("user 1000") is None
 Dále bude možné provádět jednoduché operace na datech uložených v `Series`. Konkrétně:
 
 ### Metoda `Series.max(self)`
-Maximální hodnota v `Series`. Nemusíte ošetřovat datový typ hodnot v serii.
+Maximální hodnota v `Series`. Nemusíte ošetřovat datový typ hodnot v posloupnosti.
 
 ```python
 from data.series import Series
@@ -126,7 +126,7 @@ assert cash_flow.max() == 10000
 ```
 
 ### Metoda `Series.sum(self)`
-Součet hodnot v `Series`. Nemusíte ošetřovat datový typ hodnot v serii.
+Součet hodnot v `Series`. Nemusíte ošetřovat datový typ hodnot v posloupnosti.
 
 ```python
 from data.series import Series
@@ -140,7 +140,7 @@ assert cash_flow.sum() == 9000
 ```
 
 ### Metoda `Series.mean(self)`
-Aritmetický průměr hodnot v `Series`. Nemusíte ošetřovat datový typ hodnot v serii.
+Aritmetický průměr hodnot v `Series`. Nemusíte ošetřovat datový typ hodnot v posloupnosti.
 
 ```python
 from data.series import Series
@@ -176,7 +176,7 @@ assert result.values == [10000, 100000000, 4000000, 1210000]
 ```
 
 ### Metoda `Series.abs(self)`
-Která aplikuje funkci `abs` na všechny prvky `Series` a vrátí `Series` novou. Původní `Series` nemodifikuje! Nemusíte ošetřovat datový typ hodnot v serii.
+Která aplikuje funkci `abs` na všechny prvky `Series` a vrátí `Series` novou. Původní `Series` nemodifikuje! Nemusíte ošetřovat datový typ hodnot v posloupnosti.
 
 ```python
 from data.series import Series
@@ -195,13 +195,13 @@ assert result.values == [100, 10000, 2000, 1100]
 ---
 
 ## Třída `DataFrame`
-Modul `dataframe.py` obsahuje třídu `DataFrame`, která slouží k reprezentaci tabulky dat. Tabulka je složena ze sloupců (alespoň jeden sloupec, každý sloupec je tvořen instancí třídy `Series`). Sloupce jsou idexovány pomoci instance třídy `Index`.
+Modul `dataframe.py` obsahuje třídu `DataFrame`, která slouží k reprezentaci tabulky dat. Tabulka je složena ze sloupců (alespoň jeden sloupec, každý sloupec je tvořen instancí třídy `Series`). Sloupce jsou indexovány pomoci instance třídy `Index`.
 
 ![DataFrame](dataframe.png)
 
 Třída obsahuje následující vlastnosti:
 * `DataFrame.values` - seznam instancí třídy `Series`, reprezentuje hodnoty sloupců, musí obsahovat alespoň jeden prvek jinak vyvolá `ValueError`.
-* `DataFrame.columns` - index sloužící k indexaci `DataFrame.values`, musi být stejné délky jako `DataFrame.values` jinak vyvolá `ValueError`. Pokud byla počáteční hodnota `None` vytvoříme index nový, `Index.labels` nastavíme na hodnoty `0` až `n` kde `n` je délka `DataFrame.values`.
+* `DataFrame.columns` - index sloužící k indexaci `DataFrame.values`, musí být stejné délky jako `DataFrame.values` jinak vyvolá `ValueError`. Pokud byla počáteční hodnota `None` vytvoříme index nový, `Index.labels` nastavíme na hodnoty `0` až `n` kde `n` je délka `DataFrame.values`.
 
 Třída obsahuje následující metody:
 * `DataFrame.get(self, key)` - pokud `DataFrame.columns` obsahuje `key`, vrátí odpovídající sloupec (`Series`) z `DataFrame.values`, jinak vrací `None`.
@@ -223,5 +223,3 @@ data = DataFrame([names, salaries, cash_flow], columns=Index(["names", "salary",
 data.get("salary") == salaries
 data.get("cash flow").max() == 10000
 ```
-
-
