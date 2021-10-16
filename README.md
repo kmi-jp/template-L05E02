@@ -48,6 +48,8 @@ assert idx.get_loc("user 2") == 1
 ## Třída `Series`
 Modul `series.py` obsahuje třídu `Series`, která uchovává serii hodnot indexovaných dle objektu třídy `Index`.
 
+![Series](series.png)
+
 ```python
 from data.series import Series
 from data.index import Index
@@ -194,6 +196,8 @@ assert result.values == [100, 10000, 2000, 1100, 100
 
 ## Třída `DataFrame`
 Modul `dataframe.py` obsahuje třídu `DataFrame`, která slouží k reprezentaci tabulky dat. Tabulka je složena ze sloupců (alespoň jeden sloupec, každý sloupec je tvořen instancí třídy `Series`). Sloupce jsou idexovány pomoci instance třídy `Index`.
+
+![DataFrame](dataframe.png)
 
 Třída obsahuje následující vlastnosti:
 * `DataFrame.values` - seznam instancí třídy `Series`, reprezentuje hodnoty sloupců, musí obsahovat alespoň jeden prvek jinak vyvolá `ValueError`.
