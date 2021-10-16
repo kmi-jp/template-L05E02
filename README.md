@@ -109,7 +109,7 @@ assert cash_flow.get("user 1000") is None
 
 Dále bude možné provádět jednoduché operace na datech uložených v `Series`. Konkrétně:
 
-### Metoda `.max(self)`
+### Metoda `Series.max(self)`
 Maximální hodnota v `Series`. Nemusíte ošetřovat datový typ hodnot v serii.
 
 ```python
@@ -123,7 +123,7 @@ cash_flow = Series([-100, 10000, -2000, 1100, 100], index=users)
 assert cash_flow.max() == 10000
 ```
 
-### Metoda `.sum(self)`
+### Metoda `Series.sum(self)`
 Součet hodnot v `Series`. Nemusíte ošetřovat datový typ hodnot v serii.
 
 ```python
@@ -137,7 +137,7 @@ cash_flow = Series([-100, 10000, -2000, 1100, 100], index=users)
 assert cash_flow.sum() == 9100
 ```
 
-### Metoda `.mean(self)`
+### Metoda `Series.mean(self)`
 Aritmetický průměr hodnot v `Series`. Nemusíte ošetřovat datový typ hodnot v serii.
 
 ```python
@@ -151,7 +151,7 @@ cash_flow = Series([-100, 10000, -2000, 1100, 100], index=users)
 assert cash_flow.mean() == 1820.0
 ```
 
-### Metoda `.apply(self, func)` 
+### Metoda `Series.apply(self, func)` 
 Která aplikuje funkci `func` na všechny prvky `Series` a vrátí `Series` novou (s vypočítanými hodnotami). Původní `Series` nemodifikuje!
 
 ```python
@@ -173,7 +173,7 @@ assert cash_flow != result
 assert result.values == [10000, 100000000, 4000000, 1210000, 10000]
 ```
 
-### Metoda `.abs(self)`
+### Metoda `Series.abs(self)`
 Která aplikuje funkci `abs` na všechny prvky `Series` a vrátí `Series` novou. Původní `Series` nemodifikuje! Nemusíte ošetřovat datový typ hodnot v serii.
 
 ```python
@@ -193,9 +193,14 @@ assert result.values == [100, 10000, 2000, 1100, 100
 ---
 
 ## Třída `DataFrame`
-Modul `dataframe.py` obsahuje třídu `DataFrame`, která slouží k reprezentaci tabulky dat. Tabulka je složena ze sloupců (má alespoň jeden sloupec), každý sloupec je tvořen instancí třídy `Series`. Sloupce jsou indexované pomocí instance `Index`. Třída `DataFrame` tedy obsahuje dvě vlastnosti `.values` (seznam `Series` instancí) a `.columns` (instance třídy `Index`).
+Modul `dataframe.py` obsahuje třídu `DataFrame`, která slouží k reprezentaci tabulky dat. Tabulka je složena ze sloupců (alespoň jeden sloupec, každý sloupec je tvořen instancí třídy `Series`). Sloupce jsou idexovány pomoci instance třídy `Index`.
 
-Třída `DataFrame` obsahuje jednu metodu `.get(self, key)`, které vrací sloupec odpovídající klíči `key`. Pokud klíč `key` není obsažen v indexu `.columns` vrací `None`.
+Třída obsahuje následující vlastnosti:
+* `DataFrame.values` - seznam instancí třídy `Series`, reprezentuje hodnoty sloupců, musí obsahovat alespoň jeden prvek jinak vyvolá `ValueError`.
+* `DataFrame.columns` - index sloužící k indexaci `DataFrame.values`, musi být stejné délky jako `DataFrame.values` jinak vyvolá `ValueError`. Pokud byla počáteční hodnota `None` vytvoříme index nový, `Index.labels` nastavíme na hodnoty `0` až `n` kde `n` je délka `DataFrame.values`.
+
+Třída obsahuje následující metody:
+* `DataFrame.get(self, key)` - pokud `DataFrame.columns` obsahuje `key`, vrátí odpovídající sloupec (`Series`) z `DataFrame.values`, jinak vrací `None`.
 
 ```python
 from data.series import Series
