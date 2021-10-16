@@ -32,7 +32,7 @@ assert idx.get_loc("user 1") == 1
 ---
 
 ## Třída `Series`
-Modul `series.py` obsahuje třídu `Series`, která slouží k reprezentaci serie hodnot (má alespoň jednu hodnotu) s odpovídajícím indexem. Například tedy platy uživatelů. Třída `Series` obsahuje povinnou vlastnost `.values` ve které uložíme jednotlivé hodnoty a vlastnost `.index` reprezentovaný objektem třídy `Index` sloužící k indexování hodnot uložených ve `.values`. Pokud `.index` není uveden, vytvoří se index s hodnotami 0 až n, kde n je délka `.values`.
+Modul `series.py` obsahuje třídu `Series`, která slouží k reprezentaci serie hodnot (má alespoň jednu hodnotu) s odpovídajícím indexem. Například tedy platy (hodnoty) uživatelů (index). Třída `Series` obsahuje povinnou vlastnost `.values` ve které uložíme jednotlivé hodnoty a vlastnost `.index` reprezentovaný objektem třídy `Index` sloužící k indexování hodnot uložených ve `.values`. Pokud `.index` není uveden, vytvoří se index s hodnotami 0 až n, kde n je délka `.values`.
 
 ```python
 from data.series import Series
