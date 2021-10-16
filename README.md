@@ -55,13 +55,13 @@ from data.series import Series
 from data.index import Index
 
 # index
-users = Index(["user 1", "user 2", "user 3", "user 4", "user 5"], name="names")
+users = Index(["user 1", "user 2", "user 3", "user 4"], name="names")
 
 # series indexovaná dle indexu users
-salaries = Series([20000, 300000, 20000, 50000, 10000], index=users)
+salaries = Series([20000, 300000, 20000, 50000], index=users)
 
-assert salaries.values == [20000, 300000, 20000, 50000, 10000]
-assert salaries.index.labels == ['user 1', 'user 2', 'user 3', 'user 4', 'user 5']
+assert salaries.values == [20000, 300000, 20000, 50000]
+assert salaries.index.labels == ['user 1', 'user 2', 'user 3', 'user 4']
 ```
 
 Třída obsahuje následující vlastnosti:
@@ -82,18 +82,18 @@ from data.series import Series
 from data.index import Index
 
 
-users = Index(["user 1", "user 2", "user 3", "user 4", "user 5"], name="names")
+users = Index(["user 1", "user 2", "user 3", "user 4"], name="names")
 
-names = Series(["Lukas Novak", "Petr Pavel", "Pavel Petr", "Ludek Skocil", "Josef Nebyl"], index=users)
-cash_flow = Series([-100, 10000, -2000, 1100, 100], index=users)
-salaries = Series([20000, 300000, 20000, 50000, 10000], index=users)
+names = Series(["Lukas Novak", "Petr Pavel", "Pavel Petr", "Ludek Skocil"], index=users)
+cash_flow = Series([-100, 10000, -2000, 1100], index=users)
+salaries = Series([20000, 300000, 20000, 50000], index=users)
 
-assert salaries.values == [20000, 300000, 20000, 50000, 10000]
-assert salaries.index.labels == ['user 1', 'user 2', 'user 3', 'user 4', 'user 5']
+assert salaries.values == [20000, 300000, 20000, 50000]
+assert salaries.index.labels == ['user 1', 'user 2', 'user 3', 'user 4']
 
 # situace kdy nebude předán index
-no_index = Series(["Lukas Novak", "Petr Pavel", "Pavel Petr", "Ludek Skocil", "Josef Nebyl"])
-assert no_index.index.labels == [0, 1, 2, 3, 4]
+no_index = Series(["Lukas Novak", "Petr Pavel", "Pavel Petr", "Ludek Skocil"])
+assert no_index.index.labels == [0, 1, 2, 3]
 ```
 
 ```python
@@ -101,9 +101,9 @@ from data.series import Series
 from data.index import Index
 
 
-users = Index(["user 1", "user 2", "user 3", "user 4", "user 5"], name="names")
+users = Index(["user 1", "user 2", "user 3", "user 4"], name="names")
 
-cash_flow = Series([-100, 10000, -2000, 1100, 100], index=users)
+cash_flow = Series([-100, 10000, -2000, 1100], index=users)
 
 assert cash_flow.get("user 1") == -100
 assert cash_flow.get("user 1000") is None
@@ -119,8 +119,8 @@ from data.series import Series
 from data.index import Index
 
 
-users = Index(["user 1", "user 2", "user 3", "user 4", "user 5"], name="names")
-cash_flow = Series([-100, 10000, -2000, 1100, 100], index=users)
+users = Index(["user 1", "user 2", "user 3", "user 4"], name="names")
+cash_flow = Series([-100, 10000, -2000, 1100], index=users)
 
 assert cash_flow.max() == 10000
 ```
@@ -133,10 +133,10 @@ from data.series import Series
 from data.index import Index
 
 
-users = Index(["user 1", "user 2", "user 3", "user 4", "user 5"], name="names")
-cash_flow = Series([-100, 10000, -2000, 1100, 100], index=users)
+users = Index(["user 1", "user 2", "user 3", "user 4"], name="names")
+cash_flow = Series([-100, 10000, -2000, 1100], index=users)
 
-assert cash_flow.sum() == 9100
+assert cash_flow.sum() == 9000
 ```
 
 ### Metoda `Series.mean(self)`
@@ -166,13 +166,13 @@ def squared(a):
     return a ** 2
 
 
-users = Index(["user 1", "user 2", "user 3", "user 4", "user 5"], name="names")
-cash_flow = Series([-100, 10000, -2000, 1100, 100], index=users)
+users = Index(["user 1", "user 2", "user 3", "user 4"], name="names")
+cash_flow = Series([-100, 10000, -2000, 1100], index=users)
 
 result = cash_flow.apply(squared)
 
 assert cash_flow != result
-assert result.values == [10000, 100000000, 4000000, 1210000, 10000]
+assert result.values == [10000, 100000000, 4000000, 1210000]
 ```
 
 ### Metoda `Series.abs(self)`
@@ -183,13 +183,13 @@ from data.series import Series
 from data.index import Index
 
 
-users = Index(["user 1", "user 2", "user 3", "user 4", "user 5"], name="names")
-cash_flow = Series([-100, 10000, -2000, 1100, 100], index=users)
+users = Index(["user 1", "user 2", "user 3", "user 4"], name="names")
+cash_flow = Series([-100, 10000, -2000, 1100], index=users)
 
 result = cash_flow.abs(squared)
 
 assert cash_flow != result
-assert result.values == [100, 10000, 2000, 1100, 100
+assert result.values == [100, 10000, 2000, 1100]
 ```
 
 ---
@@ -212,11 +212,11 @@ from data.index import Index
 from data.dataframe import DataFrame
 
 
-users = Index(["user 1", "user 2", "user 3", "user 4", "user 5"], name="names")
+users = Index(["user 1", "user 2", "user 3", "user 4"], name="names")
 
-salaries = Series([20000, 300000, 20000, 50000, 10000], index=users)
-names = Series(["Lukas Novak", "Petr Pavel", "Pavel Petr", "Ludek Skocil", "Josef Nebyl"], index=users)
-cash_flow = Series([-100, 10000, -2000, 1100, 100], index=users)
+salaries = Series([20000, 300000, 20000, 50000], index=users)
+names = Series(["Lukas Novak", "Petr Pavel", "Pavel Petr", "Ludek Skocil"], index=users)
+cash_flow = Series([-100, 10000, -2000, 1100], index=users)
 
 data = DataFrame([names, salaries, cash_flow], columns=Index(["names", "salary", "cash flow"]))
 
