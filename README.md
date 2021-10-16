@@ -26,7 +26,7 @@ Dále třída `Index` obsahuje metodu `.get_loc(self, key)`, která vrací index
 ```python
 idx = Index(["user 1", "user 2", "user 3", "user 4", "user 5"])
 
-assert idx.get_loc("user 1") == 1
+assert idx.get_loc("user 2") == 1
 ```
 
 ---
