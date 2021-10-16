@@ -46,7 +46,7 @@ assert idx.get_loc("user 2") == 1
 ---
 
 ## Třída `Series`
-Modul `series.py` obsahuje třídu `Series`, která uchovává serii hodnot indexovaných dle objektu třídy `Index`.
+Modul `series.py` obsahuje třídu `Series`, která uchovává posloupnost hodnot indexovaných dle objektu třídy `Index`.
 
 ![Series](series.png)
 
@@ -71,9 +71,9 @@ Třída obsahuje následující vlastnosti:
 Třída obsahuje následující metody:
 * `Series.get(self, key)` - pokud `Series.index` obsahuje `key`, vrátí odpovídající hodnotu z `Series.values`, jinak vrací `None`.
 * `Series.sum(self)` - sečtě všechny hodnoty v serii, detailní popis níže
-* `Series.max(self)` - nalezne maximální hodnotu ze serie, detailní popis níže
+* `Series.max(self)` - nalezne maximální hodnotu z posloupnosti, detailní popis níže
 * `Series.mean(self)` - vypočítá aritmetický průměr, detailní popis níže
-* `Series.apply(self, func)` - aplikuje libovolnou funkci na prvky serie, detailní popis níže
+* `Series.apply(self, func)` - aplikuje libovolnou funkci na prvky posloupnosti, detailní popis níže
 * `Series.abs(self)` - vytvoří novou serii, kde všechny hodnotu budou výsledky aplikace funkce `abs()`, detailní popis níže
 
 
