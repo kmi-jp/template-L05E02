@@ -9,6 +9,7 @@ Modul `index.py` obsahuje třídu `Index` sloužící k indexaci libovolné sekv
 ```python
 from data.index import Index
 
+
 idx = Index(["key 1", "key 2", "key 3", "key 4", "key 5"])
 values = [0, 1, 2, 3, 4]
 
