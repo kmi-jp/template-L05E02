@@ -209,6 +209,7 @@ Třída obsahuje následující metody:
 ```python
 from data.series import Series
 from data.index import Index
+from data.dataframe import DataFrame
 
 
 users = Index(["user 1", "user 2", "user 3", "user 4", "user 5"], name="names")
