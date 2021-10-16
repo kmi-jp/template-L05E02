@@ -4,7 +4,23 @@ Vytvořte balíček `data`, který obsahuje moduly `index.py`, `series.py` a `da
 ---
 
 ## Třída `Index`
-Modul `index.py` obsahuje třídu `Index`, která slouží k překladu názvu na jejich index. Třída `Index` obsahuje vlastnosti `.labels` (reprezentujeme seznamem) a `.name`. Vlastnost `.labels` je povinná a její interní reprezentace je seznam. Seznam `.labels` nesmí obsahovat duplicitní řetězec, pokud se tak stane, vyvoláme `ValueError`. Vlastnost `.name` je volitelná, v případě, že ji uživatel neuvede je rovna `""`.
+Modul `index.py` obsahuje třídu `Index` sloužící k indexaci libovolné sekvence hodnot.
+
+```python
+from data.index import Index
+
+idx = Index(["key 1", "key 2", "key 3", "key 4", "key 5"])
+values = [0, 1, 2, 3, 4]
+
+assert values[idx.get_loc("key 2")] == 1
+```
+
+Třída obsahuje následující vlastnosti:
+* `Index.labels` - seznam klíču (labelů) - nesmí obsahovat duplicity (vyvolá vyjimku `ValueError`).
+* `Index.name` - volitelná vlastnost obsahující název indexu, výchozí hodnota na `""`.
+
+Třída obsahuje následující metody:
+* `Index.get_loc(self, key)` - přeloží klíč `key` z `Index.labels` na odpovídající index. Pokud není klíč přítomen vyvoláme výjimku `ValueError`
 
 ```python
 from data.index import Index
@@ -20,8 +36,6 @@ idx = Index(["user 1", "user 2", "user 3", "user 4", "user 5"], name="users")
 assert idx.name == "users"
 assert idx.labels == ["user 1", "user 2", "user 3", "user 4", "user 5"]
 ```
-
-Dále třída `Index` obsahuje metodu `.get_loc(self, key)`, která vrací index zadaného klíče `key` uloženého v seznamu `.labels`. Pokud není klíč přítomen vyvoláme výjimku `ValueError`.
 
 ```python
 idx = Index(["user 1", "user 2", "user 3", "user 4", "user 5"])
@@ -52,8 +66,6 @@ assert salaries.index.labels == ['user 1', 'user 2', 'user 3', 'user 4', 'user 5
 no_index = Series(["Lukas Novak", "Petr Pavel", "Pavel Petr", "Ludek Skocil", "Josef Nebyl"])
 assert no_index.index.labels == [0, 1, 2, 3, 4]
 ```
-
-![Series](series.png)
 
 ### Metoda `.get(self, key)`
 Slouží k přístupu k hodnota uložené pod klíčem `key`. V případě, že klíč není přítomen, výsledná hodnota je `None`.
@@ -160,8 +172,6 @@ assert result.values == [100, 10000, 2000, 1100, 100
 Modul `dataframe.py` obsahuje třídu `DataFrame`, která slouží k reprezentaci tabulky dat. Tabulka je složena ze sloupců (má alespoň jeden sloupec), každý sloupec je tvořen instancí třídy `Series`. Sloupce jsou indexované pomocí instance `Index`. Třída `DataFrame` tedy obsahuje dvě vlastnosti `.values` (seznam `Series` instancí) a `.columns` (instance třídy `Index`).
 
 Třída `DataFrame` obsahuje jednu metodu `.get(self, key)`, které vrací sloupec odpovídající klíči `key`. Pokud klíč `key` není obsažen v indexu `.columns` vrací `None`.
-
-![DataFrame](dataframe.png)
 
 ```python
 from data.series import Series
