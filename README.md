@@ -53,6 +53,8 @@ no_index = Series(["Lukas Novak", "Petr Pavel", "Pavel Petr", "Ludek Skocil", "J
 assert no_index.index.labels == [0, 1, 2, 3, 4]
 ```
 
+![Series](series.png)
+
 ### Metoda `.get(self, key)`
 Slouží k přístupu k hodnota uložené pod klíčem `key`. V případě, že klíč není přítomen, výsledná hodnota je `None`.
 
@@ -158,6 +160,8 @@ assert result.values == [100, 10000, 2000, 1100, 100
 Modul `dataframe.py` obsahuje třídu `DataFrame`, která slouží k reprezentaci tabulky dat. Tabulka je složena ze sloupců (má alespoň jeden sloupec), každý sloupec je tvořen instancí třídy `Series`. Sloupce jsou indexované pomocí instance `Index`. Třída `DataFrame` tedy obsahuje dvě vlastnosti `.values` (seznam `Series` instancí) a `.columns` (instance třídy `Index`).
 
 Třída `DataFrame` obsahuje jednu metodu `.get(self, key)`, které vrací sloupec odpovídající klíči `key`. Pokud klíč `key` není obsažen v indexu `.columns` vrací `None`.
+
+![DataFrame](dataframe.png)
 
 ```python
 from data.series import Series
