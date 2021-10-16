@@ -148,6 +148,8 @@ assert cash_flow != result
 assert result.values == [100, 10000, 2000, 1100, 100
 ```
 
+---
+
 ## Třída `DataFrame`
 Modul `dataframe.py` obsahuje třídu `DataFrame`, která slouží k reprezentaci tabulky dat. Tabulka je složena ze sloupců (má alespoň jeden sloupec), každý sloupec je tvořen instancí třídy `Series`. Sloupce jsou indexované pomocí instance `Index`. Třída `DataFrame` tedy obsahuje dvě vlastnosti `.values` (seznam `Series` instancí) a `.columns` (instance třídy `Index`).
 
