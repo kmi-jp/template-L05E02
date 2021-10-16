@@ -4,7 +4,7 @@ Vytvořte balíček `data`, který obsahuje moduly `index.py`, `series.py` a `da
 ---
 
 ## Třída `Index`
-Modul `index.py` obsahuje třídu `Index`, která slouží k překladu názvu na jejich index. Třída `Index` obsahuje vlastnosti `.labels` a `.name`. Vlastnost `.labels` je povinná a její interní reprezentace je seznam. Seznam `.labels` nesmí obsahovat duplicitní řetězec, pokud se tak stane, vyvoláme `ValueError`. Vlastnost `.name` je volitelná, v případě, že ji uživatel neuvede je rovna `""`.
+Modul `index.py` obsahuje třídu `Index`, která slouží k překladu názvu na jejich index. Třída `Index` obsahuje vlastnosti `.labels` (reprezentujeme seznamem) a `.name`. Vlastnost `.labels` je povinná a její interní reprezentace je seznam. Seznam `.labels` nesmí obsahovat duplicitní řetězec, pokud se tak stane, vyvoláme `ValueError`. Vlastnost `.name` je volitelná, v případě, že ji uživatel neuvede je rovna `""`.
 
 ```python
 from data.index import Index
