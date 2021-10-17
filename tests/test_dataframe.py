@@ -17,6 +17,7 @@ def test_dataframe():
 
     assert data.columns == columns
     assert data.values == [names, salaries, cash_flow]
+    assert isinstance(data.values, list)
     assert data.get("salary") == salaries
     assert data.get("cash flow").max() == 10000
     assert data.get("wrong key") == None
@@ -25,7 +26,7 @@ def test_dataframe():
 def test_empty_dataframe():
     with pytest.raises(ValueError):
         DataFrame([])
-        
+
 
 def test_empty_columns():
     users = Index(["user 1", "user 2", "user 3", "user 4"], name="names")
@@ -36,7 +37,7 @@ def test_empty_columns():
 
     data = DataFrame([names, salaries, cash_flow])
 
-    assert data.columns == Index(range(3))
+    assert data.columns.labels == Index(range(3)).labels
     assert data.values == [names, salaries, cash_flow]
-    assert data.get("salary") == salaries
-    assert data.get("cash flow").max() == 10000
+    assert data.get(1) == salaries
+    assert data.get(2).max() == 10000

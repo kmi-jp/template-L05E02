@@ -10,6 +10,7 @@ def test_index():
     values = [0, 1, 2, 3, 4]
 
     assert idx.labels == test_labels
+    assert isinstance(idx.labels, list)
     assert values[idx.get_loc("key 2")] == 1
     assert idx.name == ""
 

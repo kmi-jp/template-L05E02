@@ -12,6 +12,7 @@ def test_series():
     salaries = Series(values=values, index=idx)
 
     assert salaries.values == values
+    assert isinstance(salaries.values, list)
     assert salaries.index == idx
 
 
@@ -19,7 +20,7 @@ def test_empty_index():
     values = [20000, 300000, 20000, 50000]
     salaries = Series(values)
 
-    assert salaries.index == Index(range(len(values)))
+    assert salaries.index.labels == Index(range(len(values))).labels
 
 
 def test_series_get():
@@ -47,7 +48,7 @@ def test_series_max():
 
     salaries = Series(values=values, index=idx)
 
-    assert salaries.sum() == max(values)
+    assert salaries.max() == max(values)
 
 
 def test_series_min():
@@ -56,7 +57,7 @@ def test_series_min():
 
     salaries = Series(values=values, index=idx)
 
-    assert salaries.sum() == min(values)
+    assert salaries.min() == min(values)
 
 
 def test_series_mean():
@@ -107,7 +108,7 @@ def test_empty_series():
     "values,labels",
     [
         ([20000, 300000, 20000], ["user 1"]),
-        ([20000, 300000], ["user 1", "user 2"]),
+        ([20000], ["user 1", "user 2"]),
     ],
 )
 def test_values_index_length_mismatch(values, labels):
