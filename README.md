@@ -17,7 +17,7 @@ assert values[idx.get_loc("key 2")] == 1
 ```
 
 Třída obsahuje následující vlastnosti:
-* `Index.labels` - seznam klíču (labelů) - nesmí obsahovat duplicity (vyvolá vyjimku `ValueError`).
+* `Index.labels` - seznam klíču (labelů) - nesmí obsahovat duplicity (vyvolá vyjimku `ValueError`) - musí mít alespoň jeden prvek (jinak vyvolá vyjimku `ValueError`).
 * `Index.name` - volitelná vlastnost obsahující název indexu, výchozí hodnota na `""`.
 
 Třída obsahuje následující metody:
@@ -73,6 +73,7 @@ Třída obsahuje následující metody:
 * `Series.get(self, key)` - pokud `Series.index` obsahuje `key`, vrátí odpovídající hodnotu z `Series.values`, jinak vrací `None`.
 * `Series.sum(self)` - sečte všechny hodnoty v posloupnosti, detailní popis níže
 * `Series.max(self)` - nalezne maximální hodnotu z posloupnosti, detailní popis níže
+* `Series.min(self)` - nalezne minimální hodnotu z posloupnosti, analogicky k max variantě
 * `Series.mean(self)` - vypočítá aritmetický průměr, detailní popis níže
 * `Series.apply(self, func)` - aplikuje libovolnou funkci na prvky posloupnosti, detailní popis níže
 * `Series.abs(self)` - vytvoří novou serii, kde všechny hodnotu budou výsledky aplikace funkce `abs()`, detailní popis níže
@@ -112,7 +113,7 @@ assert cash_flow.get("user 1000") is None
 
 Dále bude možné provádět jednoduché operace na datech uložených v `Series`. Konkrétně:
 
-### Metoda `Series.max(self)`
+### Metoda `Series.max(self)`/`Series.min(self)`
 Maximální hodnota v `Series`. Nemusíte ošetřovat datový typ hodnot v posloupnosti.
 
 ```python
@@ -124,6 +125,7 @@ users = Index(["user 1", "user 2", "user 3", "user 4"], name="names")
 cash_flow = Series([-100, 10000, -2000, 1100], index=users)
 
 assert cash_flow.max() == 10000
+assert cash_flow.min() == -2000
 ```
 
 ### Metoda `Series.sum(self)`
@@ -141,7 +143,7 @@ assert cash_flow.sum() == 9000
 ```
 
 ### Metoda `Series.mean(self)`
-Aritmetický průměr hodnot v `Series`. Nemusíte ošetřovat datový typ hodnot v posloupnosti.
+Aritmetický průměr hodnot v `Series`. Nemusíte ošetřovat datový typ hodnot v posloupnosti. Můžete použít modul `statistics` a funkci `mean()`.
 
 ```python
 from data.series import Series
@@ -221,6 +223,6 @@ cash_flow = Series([-100, 10000, -2000, 1100], index=users)
 
 data = DataFrame([names, salaries, cash_flow], columns=Index(["names", "salary", "cash flow"]))
 
-data.get("salary") == salaries
-data.get("cash flow").max() == 10000
+assert data.get("salary") == salaries
+assert data.get("cash flow").max() == 10000
 ```
