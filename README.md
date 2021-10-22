@@ -189,7 +189,7 @@ from data.index import Index
 users = Index(["user 1", "user 2", "user 3", "user 4"], name="names")
 cash_flow = Series([-100, 10000, -2000, 1100], index=users)
 
-result = cash_flow.abs(squared)
+result = cash_flow.abs()
 
 assert cash_flow != result
 assert result.values == [100, 10000, 2000, 1100]
