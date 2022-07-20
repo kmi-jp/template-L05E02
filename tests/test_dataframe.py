@@ -26,41 +26,41 @@ def names_data():
 
 
 def test_dataframe(users_data, salaries_data, names_data, cash_flow_data):
-    users = Index(users_data, name="names")
+    users = Index(labels=users_data, name="names")
 
-    salaries = Series(salaries_data, index=users)
-    names = Series(names_data, index=users)
-    cash_flow = Series(cash_flow_data, index=users)
+    salaries = Series(values=salaries_data, index=users)
+    names = Series(values=names_data, index=users)
+    cash_flow = Series(values=cash_flow_data, index=users)
 
-    columns = Index(["names", "salary", "cash flow"])
-    data = DataFrame([names, salaries, cash_flow], columns=columns)
+    columns = Index(labels=["names", "salary", "cash flow"])
+    data = DataFrame(values=[names, salaries, cash_flow], columns=columns)
 
     assert data.columns == columns
     assert data.values == [names, salaries, cash_flow]
     assert isinstance(data.values, list)
-    assert data.get("salary") == salaries
-    assert data.get("cash flow").max() == 10000
-    assert data.get("wrong key") == None
+    assert data.get(key="salary") == salaries
+    assert data.get(key="cash flow").max() == 10000
+    assert data.get(key="wrong key") == None
 
 
 def test_empty_dataframe():
     with pytest.raises(ValueError):
-        DataFrame([])
+        DataFrame(values=[])
 
 
 def test_empty_columns(users_data, salaries_data, names_data, cash_flow_data):
-    users = Index(users_data, name="names")
+    users = Index(labels=users_data, name="names")
 
-    salaries = Series(salaries_data, index=users)
-    names = Series(names_data, index=users)
-    cash_flow = Series(cash_flow_data, index=users)
+    salaries = Series(values=salaries_data, index=users)
+    names = Series(values=names_data, index=users)
+    cash_flow = Series(values=cash_flow_data, index=users)
 
-    data = DataFrame([names, salaries, cash_flow])
+    data = DataFrame(values=[names, salaries, cash_flow])
 
     assert data.columns.labels == Index(range(3)).labels
     assert data.values == [names, salaries, cash_flow]
-    assert data.get(1) == salaries
-    assert data.get(2).max() == 10000
+    assert data.get(key=1) == salaries
+    assert data.get(key=2).max() == 10000
 
 
 @pytest.mark.parametrize(

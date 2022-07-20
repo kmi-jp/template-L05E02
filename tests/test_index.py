@@ -14,13 +14,13 @@ def test_index(keys):
 
     assert idx.labels == keys
     assert isinstance(idx.labels, list)
-    assert values[idx.get_loc("key 2")] == 1
+    assert values[idx.get_loc(key="key 2")] == 1
     assert idx.name == ""
 
 
 def test_empty_labels():
     with pytest.raises(ValueError):
-        Index([])
+        Index(labels=[])
 
 
 def test_nonempty_name(keys):
@@ -31,12 +31,12 @@ def test_nonempty_name(keys):
 
 def test_invalid_key():
     with pytest.raises(KeyError):
-        Index(["key 1"]).get_loc("key 2")
+        Index(labels=["key 1"]).get_loc(key="key 2")
 
 
 def test_label_duplicity():
     with pytest.raises(ValueError):
-        Index(["key 1", "key 1", "key 3", "key 4", "key 5"])
+        Index(labels=["key 1", "key 1", "key 3", "key 4", "key 5"])
 
 
 @pytest.mark.parametrize(

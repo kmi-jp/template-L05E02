@@ -12,7 +12,7 @@ def values_data():
 
 @pytest.fixture
 def idx():
-    return Index(["user 1", "user 2", "user 3", "user 4"], name="names")
+    return Index(labels=["user 1", "user 2", "user 3", "user 4"], name="names")
 
 
 def test_series(values_data, idx):
@@ -26,16 +26,16 @@ def test_series(values_data, idx):
 
 
 def test_empty_index(values_data):
-    salaries = Series(values_data)
+    salaries = Series(values=values_data)
 
-    assert salaries.index.labels == Index(range(len(values_data))).labels
+    assert salaries.index.labels == Index(labels=range(len(values_data))).labels
 
 
 def test_series_get(values_data, idx):
     salaries = Series(values=values_data, index=idx)
 
-    assert salaries.get("user 2") == values_data[1]
-    assert salaries.get("wrong key") == None
+    assert salaries.get(key="user 2") == values_data[1]
+    assert salaries.get(key="wrong key") == None
 
 
 def test_series_sum(values_data, idx):
@@ -69,7 +69,7 @@ def test_series_apply(values_data, idx):
         """Returns squared number"""
         return a ** 2
 
-    result = salaries.apply(squared)
+    result = salaries.apply(func=squared)
 
     assert salaries != result
     assert salaries is not result
