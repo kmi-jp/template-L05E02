@@ -226,3 +226,10 @@ data = DataFrame([names, salaries, cash_flow], columns=Index(["names", "salary",
 assert data.get("salary") == salaries
 assert data.get("cash flow").max() == 10000
 ```
+
+## Lokální testování
+Funkčnost řešení ověříte následujícím příkazem:
+
+```bash
+pytest
+```

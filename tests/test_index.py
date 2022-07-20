@@ -5,7 +5,7 @@ from data.index import Index
 
 def test_index():
     test_labels = ["key 1", "key 2", "key 3", "key 4", "key 5"]
-    
+
     idx = Index(labels=test_labels)
     values = [0, 1, 2, 3, 4]
 
