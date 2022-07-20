@@ -26,57 +26,44 @@ def test_series(values_data, idx):
 
 
 def test_empty_index(values_data):
-    values = values_data
-    salaries = Series(values)
+    salaries = Series(values_data)
 
-    assert salaries.index.labels == Index(range(len(values))).labels
+    assert salaries.index.labels == Index(range(len(values_data))).labels
 
 
 def test_series_get(values_data, idx):
-    values = values_data
+    salaries = Series(values=values_data, index=idx)
 
-    salaries = Series(values=values, index=idx)
-
-    assert salaries.get("user 2") == values[1]
+    assert salaries.get("user 2") == values_data[1]
     assert salaries.get("wrong key") == None
 
 
 def test_series_sum(values_data, idx):
-    values = values_data
+    salaries = Series(values=values_data, index=idx)
 
-    salaries = Series(values=values, index=idx)
-
-    assert salaries.sum() == sum(values)
+    assert salaries.sum() == sum(values_data)
 
 
 def test_series_max(values_data, idx):
-    values = values_data
+    salaries = Series(values=values_data, index=idx)
 
-    salaries = Series(values=values, index=idx)
-
-    assert salaries.max() == max(values)
+    assert salaries.max() == max(values_data)
 
 
 def test_series_min(values_data, idx):
-    values = values_data
+    salaries = Series(values=values_data, index=idx)
 
-    salaries = Series(values=values, index=idx)
-
-    assert salaries.min() == min(values)
+    assert salaries.min() == min(values_data)
 
 
 def test_series_mean(values_data, idx):
-    values = values_data
+    salaries = Series(values=values_data, index=idx)
 
-    salaries = Series(values=values, index=idx)
-
-    assert salaries.mean() == statistics.mean(values)
+    assert salaries.mean() == statistics.mean(values_data)
 
 
 def test_series_apply(values_data, idx):
-    values = values_data
-
-    salaries = Series(values=values, index=idx)
+    salaries = Series(values=values_data, index=idx)
 
     def squared(a):
         """Returns squared number"""
@@ -86,7 +73,7 @@ def test_series_apply(values_data, idx):
 
     assert salaries != result
     assert salaries is not result
-    assert result.values == list(map(squared, values))
+    assert result.values == list(map(squared, values_data))
 
 
 def test_series_abs(idx):
@@ -120,12 +107,18 @@ def test_values_index_length_mismatch(values, labels):
         Series(values=values, index=idx)
 
 
-def test_docstrings():
-    assert Series.__doc__ is not None
-    assert Series.get.__doc__ is not None
-    assert Series.sum.__doc__ is not None
-    assert Series.max.__doc__ is not None
-    assert Series.min.__doc__ is not None
-    assert Series.mean.__doc__ is not None
-    assert Series.apply.__doc__ is not None
-    assert Series.abs.__doc__ is not None
+@pytest.mark.parametrize(
+    "function",
+    [
+        Series,
+        Series.get,
+        Series.sum,
+        Series.max,
+        Series.min,
+        Series.mean,
+        Series.apply,
+        Series.abs,
+    ],
+)
+def test_docstrings(function):
+    assert function.__doc__ is not None

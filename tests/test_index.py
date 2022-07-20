@@ -9,12 +9,10 @@ def keys():
 
 
 def test_index(keys):
-    test_labels = keys
-
-    idx = Index(labels=test_labels)
+    idx = Index(labels=keys)
     values = [0, 1, 2, 3, 4]
 
-    assert idx.labels == test_labels
+    assert idx.labels == keys
     assert isinstance(idx.labels, list)
     assert values[idx.get_loc("key 2")] == 1
     assert idx.name == ""
@@ -41,6 +39,9 @@ def test_label_duplicity():
         Index(["key 1", "key 1", "key 3", "key 4", "key 5"])
 
 
-def test_docstrings():
-    assert Index.__doc__ is not None
-    assert Index.get_loc.__doc__ is not None
+@pytest.mark.parametrize(
+    "function",
+    [Index, Index.get_loc],
+)
+def test_docstrings(function):
+    assert function.__doc__ is not None

@@ -63,6 +63,9 @@ def test_empty_columns(users_data, salaries_data, names_data, cash_flow_data):
     assert data.get(2).max() == 10000
 
 
-def test_docstrings():
-    assert DataFrame.__doc__ is not None
-    assert DataFrame.get.__doc__ is not None
+@pytest.mark.parametrize(
+    "function",
+    [DataFrame, DataFrame.get],
+)
+def test_docstrings(function):
+    assert function.__doc__ is not None
