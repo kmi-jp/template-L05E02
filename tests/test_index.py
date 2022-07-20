@@ -3,8 +3,13 @@ import pytest
 from data.index import Index
 
 
-def test_index():
-    test_labels = ["key 1", "key 2", "key 3", "key 4", "key 5"]
+@pytest.fixture
+def keys():
+    return ["key 1", "key 2", "key 3", "key 4", "key 5"]
+
+
+def test_index(keys):
+    test_labels = keys
 
     idx = Index(labels=test_labels)
     values = [0, 1, 2, 3, 4]
@@ -20,8 +25,8 @@ def test_empty_labels():
         Index([])
 
 
-def test_nonempty_name():
-    idx = Index(labels=["key 1", "key 2", "key 3", "key 4", "key 5"], name="index")
+def test_nonempty_name(keys):
+    idx = Index(labels=keys, name="index")
 
     assert idx.name == "index"
 
@@ -34,3 +39,8 @@ def test_invalid_key():
 def test_label_duplicity():
     with pytest.raises(ValueError):
         Index(["key 1", "key 1", "key 3", "key 4", "key 5"])
+
+
+def test_docstrings():
+    assert Index.__doc__ is not None
+    assert Index.get_loc.__doc__ is not None
